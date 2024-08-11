@@ -1,6 +1,5 @@
-import { RouteScene } from './scenes/RouteScene';
-
-import { Game, Types } from "phaser";
+import { FieldScene } from './scenes/FieldScene';
+import { Game, Types } from 'phaser';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -21,7 +20,7 @@ const config: Types.Core.GameConfig = {
         }
     },
     scene: [
-        RouteScene
+        FieldScene
     ]
 };
 
