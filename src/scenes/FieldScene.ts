@@ -1,28 +1,28 @@
-import { Enemy } from "../units/Enemy";
-import { Player } from "../units/Player";
+import Phaser from 'phaser';
+
+import { Enemy } from "../entities/Enemy";
+import { Player } from "../entities/Player";
 
 export class FieldScene extends Phaser.Scene {
-    private player?: Player;
+    private player: Player;
     private enemies: Enemy[] = [];
-    private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
     constructor() {
         super({ key: 'FieldScene' });
     }
 
-    preload() {
-        Player.preload(this);
-        Enemy.preload(this);
+    preload(): void {
+        this.load.image('player', '/assets/player.png');
+        this.load.image('enemy', '/assets/enemy.png');
     }
 
-    create() {
-        this.player = new Player(this, 100, 100);
-        this.enemies.push(new Enemy(this, 300, 300, this.player));
-        this.cursors = this.input.keyboard?.createCursorKeys();
+    create(): void {
+        this.player = new Player(this, 100, 100, 'player');
+        this.enemies.push(new Enemy(this, 300, 300, 'enemy', this.player));
     }
 
-    update() {
-        this.player!.update(this.cursors!);
-        this.enemies.forEach(e => e.update());
+    update(t: number, dt: number): void {
+        this.player.update(dt);
+        this.enemies.forEach(e => e.update(dt));
     }
 }
