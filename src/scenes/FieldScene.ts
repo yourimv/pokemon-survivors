@@ -12,7 +12,8 @@ export class FieldScene extends Phaser.Scene {
     }
 
     preload(): void {
-        this.load.spritesheet('player', '/assets/spritesheets/pikachu.png', { frameWidth: 32, frameHeight: 40 });
+        this.load.spritesheet('player-walk', '/assets/spritesheets/pikachu-walk.png', { frameWidth: 32, frameHeight: 40 });
+        this.load.spritesheet('player-idle', '/assets/spritesheets/pikachu-idle.png', { frameWidth: 40, frameHeight: 55 });
         this.load.image('enemy', '/assets/enemy.png');
     }
 

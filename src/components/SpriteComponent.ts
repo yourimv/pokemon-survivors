@@ -1,3 +1,4 @@
+import { ActivityState } from './../states/ActivityState';
 import Component from "./Component";
 
 export default class SpriteComponent implements Component {
@@ -12,6 +13,14 @@ export default class SpriteComponent implements Component {
 
     setTexture(texture: string): void {
         this.sprite.setTexture(texture);
+    }
+
+    setScale(x: number, y?: number): void {
+        this.sprite.setScale(x, y);
+    }
+
+    setDisplaySize(width: number, height: number): void {
+        this.sprite.setDisplaySize(width, height);
     }
 
     getSprite(): Phaser.Physics.Arcade.Sprite {

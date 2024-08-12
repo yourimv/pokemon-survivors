@@ -1,25 +1,21 @@
+import { ActivityState } from './../states/ActivityState';
 import SpriteComponent from '../components/SpriteComponent';
 import Phaser from 'phaser';
 import Entity from './Entity';
 import InputComponent from '../components/InputComponent';
 import { AnimationComponent } from '../components/AnimationComponent';
+import { DirectionState } from '../states/DirectionState';
 
 export class Player extends Entity {
 
-    private readonly fps: number = 5;
+    private readonly fps: number = 8;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super();
         const sprite = new SpriteComponent(scene, x, y, texture);
-        // Add animations to the sprite
-        sprite.addAnimation('down', scene.anims.generateFrameNumbers(texture, { start: 0, end: 3 }), this.fps);
-
-        sprite.addAnimation('right', scene.anims.generateFrameNumbers(texture, { start: 8, end: 11 }), this.fps);
-
-        sprite.addAnimation('up', scene.anims.generateFrameNumbers(texture, { start: 16, end: 19 }), this.fps);
-
-        sprite.addAnimation('left', scene.anims.generateFrameNumbers(texture, { start: 24, end: 27 }), this.fps);
-
+        this.createAnimations(sprite, scene, ActivityState.Idle, texture, 5);
+        this.createAnimations(sprite, scene, ActivityState.Walk, texture, 3);
+        sprite.setScale(1);
         const input = new InputComponent(scene, sprite.getSprite(), 200);
         const animation = new AnimationComponent(sprite);
         this.addComponent(sprite);
@@ -30,5 +26,27 @@ export class Player extends Entity {
     getSpriteComponent(): SpriteComponent {
         // hacky af
         return this.components[0] as SpriteComponent;
+    }
+
+    private createAnimations(sprite: SpriteComponent, scene: Phaser.Scene, activity: ActivityState, texture: string, interval: number): void {
+        const directions = [
+            DirectionState.Down,
+            DirectionState.DownRight,
+            DirectionState.Right,
+            DirectionState.UpRight,
+            DirectionState.Up,
+            DirectionState.UpLeft,
+            DirectionState.Left,
+            DirectionState.DownLeft
+        ];
+        let startFrame = 0;
+        directions.forEach((direction) => {
+            const endFrame = startFrame + interval;
+            sprite.addAnimation(`${activity}-${direction}`,
+                scene.anims.generateFrameNumbers(`${texture}-${activity}`, { start: startFrame, end: endFrame }),
+                this.fps
+            );
+            startFrame = endFrame + 1; // Update startFrame for next direction
+        });
     }
 }
