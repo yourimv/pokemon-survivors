@@ -2,11 +2,11 @@ import Component from "./Component";
 
 export class ChaseComponent implements Component {
     private scene: Phaser.Scene;
-    private self: Phaser.Physics.Arcade.Sprite;
-    private target: Phaser.Physics.Arcade.Sprite;
+    private self: Phaser.GameObjects.GameObject;
+    private target: Phaser.GameObjects.GameObject;
     private speed: number;
 
-    constructor(scene: Phaser.Scene, self: Phaser.Physics.Arcade.Sprite, target: Phaser.Physics.Arcade.Sprite, speed: number) {
+    constructor(scene: Phaser.Scene, self: Phaser.GameObjects.GameObject, target: Phaser.GameObjects.GameObject, speed: number) {
         this.scene = scene;
         this.self = self;
         this.target = target;
