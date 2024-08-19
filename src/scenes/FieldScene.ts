@@ -1,14 +1,12 @@
-import Phaser from 'phaser';
 
 import { Enemy } from "../entities/Enemy";
 import { Player } from "../entities/Player";
+import { AbstractArena } from './AbstractArena';
 
-export class FieldScene extends Phaser.Scene {
-    private player: Player;
-    private enemies: Enemy[] = [];
+export class FieldScene extends AbstractArena {
 
     constructor() {
-        super({ key: 'FieldScene' });
+        super('FieldScene');
     }
 
     preload(): void {

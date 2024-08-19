@@ -1,4 +1,3 @@
-import { ActivityState } from './../states/ActivityState';
 import Component from "./Component";
 
 export default class SpriteComponent implements Component {

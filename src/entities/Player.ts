@@ -5,22 +5,29 @@ import Entity from './Entity';
 import InputComponent from '../components/InputComponent';
 import { AnimationComponent } from '../components/AnimationComponent';
 import { DirectionState } from '../states/DirectionState';
+import { Thunderbolt } from '../components/weapons/Thunderbolt';
+import { HealthComponent } from '../components/HealthComponent';
+import { AbstractArena } from '../scenes/AbstractArena';
 
 export class Player extends Entity {
 
     private readonly fps: number = 8;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
+    constructor(scene: AbstractArena, x: number, y: number, texture: string) {
         super();
         const sprite = new SpriteComponent(scene, x, y, texture);
+        sprite.setScale(1);
         this.createAnimations(sprite, scene, ActivityState.Idle, texture, 5);
         this.createAnimations(sprite, scene, ActivityState.Walk, texture, 3);
-        sprite.setScale(1);
         const input = new InputComponent(scene, sprite.getSprite(), 200);
         const animation = new AnimationComponent(sprite);
+        const weapon = new Thunderbolt(scene, sprite.getSprite());
+        const health = new HealthComponent(100);
         this.addComponent(sprite);
         this.addComponent(input);
         this.addComponent(animation);
+        this.addComponent(weapon);
+        this.addComponent(health);
     }
 
     getSpriteComponent(): SpriteComponent {
