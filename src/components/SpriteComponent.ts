@@ -10,6 +10,10 @@ export default class SpriteComponent implements Component {
         this.sprite = scene.physics.add.sprite(x, y, texture);
     }
 
+    setPosition(x: number, y: number): void {
+        this.sprite.setPosition(x, y);
+    }
+
     setTexture(texture: string): void {
         this.sprite.setTexture(texture);
     }
@@ -24,6 +28,14 @@ export default class SpriteComponent implements Component {
 
     getSprite(): Phaser.Physics.Arcade.Sprite {
         return this.sprite;
+    }
+
+    setDepth(depth: number): void {
+        this.sprite.setDepth(depth);
+    }
+
+    destroy(): void {
+        this.sprite.destroy();
     }
 
     addAnimation(key: string, frames: Phaser.Types.Animations.AnimationFrame[], frameRate: number): void {

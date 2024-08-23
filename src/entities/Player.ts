@@ -8,6 +8,7 @@ import { DirectionState } from '../states/DirectionState';
 import { Thunderbolt } from '../components/weapons/Thunderbolt';
 import { HealthComponent } from '../components/HealthComponent';
 import { AbstractArena } from '../scenes/AbstractArena';
+import CollisionComponent from '../components/CollisionComponent';
 
 export class Player extends Entity {
 
@@ -23,16 +24,22 @@ export class Player extends Entity {
         const animation = new AnimationComponent(sprite);
         const weapon = new Thunderbolt(scene, sprite.getSprite());
         const health = new HealthComponent(100);
+        const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getEnemyPhysicsGroup());
         this.addComponent(sprite);
         this.addComponent(input);
         this.addComponent(animation);
         this.addComponent(weapon);
         this.addComponent(health);
+        this.addComponent(collision);
     }
 
     getSpriteComponent(): SpriteComponent {
         // hacky af
         return this.components[0] as SpriteComponent;
+    }
+
+    getGameObject(): Phaser.GameObjects.GameObject {
+        return this.getSpriteComponent().getSprite();
     }
 
     private createAnimations(sprite: SpriteComponent, scene: Phaser.Scene, activity: ActivityState, texture: string, interval: number): void {

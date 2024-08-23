@@ -16,12 +16,14 @@ export class FieldScene extends AbstractArena {
     }
 
     create(): void {
-        this.player = new Player(this, 100, 100, 'player');
+        super.create();
+        const player = new Player(this, 100, 100, 'player')
+        this.addEntity(player);
+        new Enemy(this, 300, 300, 'enemy', player);
         // this.enemies.push(new Enemy(this, 300, 300, 'enemy', this.player));
     }
 
     update(t: number, dt: number): void {
-        this.player.update(dt);
-        this.enemies.forEach(e => e.update(dt));
+        super.update(t, dt);
     }
 }
