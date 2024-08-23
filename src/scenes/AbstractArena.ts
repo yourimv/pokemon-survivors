@@ -20,6 +20,8 @@ export class AbstractArena extends Phaser.Scene {
 
     addEntity(entity: Entity): void {
         this.entities.push(entity);
+        const gameObject = entity.getGameObject();
+        (gameObject as any).entity = entity; // Associate the entity with the game object, so we can access it in the components
         if (entity instanceof Enemy) {
             this.enemyPhysics.add(entity.getGameObject());
         }

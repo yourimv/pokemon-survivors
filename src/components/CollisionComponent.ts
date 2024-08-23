@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Component from './Component';
 import { AbstractArena } from '../scenes/AbstractArena';
+import Entity from '../entities/Entity';
 
 export default class CollisionComponent implements Component {
 
@@ -13,7 +14,9 @@ export default class CollisionComponent implements Component {
     }
 
     private handleCollision(object1: Phaser.Types.Physics.Arcade.GameObjectWithBody | Phaser.Tilemaps.Tile, object2: Phaser.Types.Physics.Arcade.GameObjectWithBody | Phaser.Tilemaps.Tile): void {
-        console.log('Collision detected');
+        const entity1 = (object1 as any).entity as Entity;
+        const entity2 = (object2 as any).entity as Entity;
+        console.log('Collision detected between', entity1, 'and', entity2);
     }
 
 }
