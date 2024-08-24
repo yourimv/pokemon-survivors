@@ -1,11 +1,12 @@
-import { Hitbox } from './../../entities/Hitbox';
 import { AbstractArena } from './../../scenes/AbstractArena';
 import { WeaponConfig } from './../../config/WeaponConfig';
 import { AbstractWeaponComponent } from "./AbstractWeaponComponent";
+import SpriteComponent from '../SpriteComponent';
+import DamageHitbox from '../../entities/hitboxes/DamageHitbox';
 
 export class Thunderbolt extends AbstractWeaponComponent {
 
-    private hitbox: Hitbox;
+    private hitbox: DamageHitbox;
     private hitboxCreationTime: number;
 
     constructor(scene: AbstractArena, sprite: Phaser.Physics.Arcade.Sprite) {
@@ -25,15 +26,14 @@ export class Thunderbolt extends AbstractWeaponComponent {
             this.lastAttack = currentTime;
         }
         if (this.hitbox) {
-            this.hitbox.getSpriteComponent().setPosition(this.sprite.x, this.sprite.y);
+            this.hitbox.getComponent(SpriteComponent).setPosition(this.sprite.x, this.sprite.y);
             if (currentTime - this.hitboxCreationTime >= this.config.duration) {
-                this.hitbox.getSpriteComponent().destroy();
+                this.hitbox.getComponent(SpriteComponent).destroy();
             }
             // this.graphics.clear();
             // this.graphics.fillStyle(0xffff00, 1);
             // this.graphics.fillCircle(this.circle.x, this.circle.y, this.circle.radius);
             // this.graphics.setDepth(this.sprite.depth - 1);
-
         }
     }
 
@@ -41,7 +41,7 @@ export class Thunderbolt extends AbstractWeaponComponent {
         console.log(`Thunderbolt with damage: ${this.config.damage} and cooldown: ${this.config.cooldown}`);
         this.hitboxCreationTime = this.scene.time.now;
 
-        this.hitbox = new Hitbox(this.scene, this.sprite.x, this.sprite.y, this.config.size, this.scene.getEnemyPhysicsGroup());
+        this.hitbox = new DamageHitbox(this.scene, this.sprite.x, this.sprite.y, this.config.size, this.scene.getEnemyPhysicsGroup(), this.config.damage);
         this.scene.addEntity(this.hitbox);
     }
 

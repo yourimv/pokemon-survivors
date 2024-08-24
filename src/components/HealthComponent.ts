@@ -1,18 +1,25 @@
+import Entity from "../entities/Entity";
+import { AbstractArena } from "../scenes/AbstractArena";
 import Component from "./Component";
 
 export class HealthComponent implements Component {
+    private entity: Entity;
+    private scene: AbstractArena;
     private maxHealth: number;
     private currentHealth: number;
 
-    constructor(maxHealth: number) {
+    constructor(entity: Entity, scene: AbstractArena, maxHealth: number) {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.entity = entity;
+        this.scene = scene;
     }
 
     takeDamage(amount: number): void {
         this.currentHealth -= amount;
         if (this.currentHealth < 0) {
             this.currentHealth = 0;
+            this.scene.removeEntity(this.entity);
         }
     }
 

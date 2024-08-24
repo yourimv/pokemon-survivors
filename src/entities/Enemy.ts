@@ -14,8 +14,8 @@ export class Enemy extends Entity {
         super();
         const sprite = new SpriteComponent(scene, x, y, texture);
         const input = new InputComponent(scene, sprite.getSprite(), 200);
-        const chase = new ChaseComponent(scene, sprite.getSprite(), player.getSpriteComponent().getSprite(), 100);
-        const health = new HealthComponent(1);
+        const chase = new ChaseComponent(scene, sprite.getSprite(), player.getComponent(SpriteComponent).getSprite(), 100);
+        const health = new HealthComponent(this, scene, 1);
         const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getFriendlyPhysicsGroup());
         this.addComponent(sprite);
         this.addComponent(input);
@@ -24,12 +24,7 @@ export class Enemy extends Entity {
         this.addComponent(collision);
     }
 
-    getSpriteComponent(): SpriteComponent {
-        // hacky af
-        return this.components[0] as SpriteComponent;
-    }
-
     getGameObject(): Phaser.GameObjects.GameObject {
-        return this.getSpriteComponent().getSprite();
+        return this.getComponent(SpriteComponent).getSprite();
     }
 }

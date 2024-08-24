@@ -31,6 +31,7 @@ export class AbstractArena extends Phaser.Scene {
     }
 
     removeEntity(entity: Entity): void {
+        entity.getGameObject().destroy();
         this.entities = this.entities.filter(e => e !== entity);
         if (entity instanceof Enemy) {
             this.enemyPhysics.remove(entity.getGameObject());
