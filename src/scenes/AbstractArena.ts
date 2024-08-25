@@ -2,10 +2,13 @@ import Phaser from 'phaser';
 
 import Entity from '../entities/Entity';
 import { Enemy } from '../entities/Enemy';
+import System from '../systems/System';
+import HealthbarRenderSystem from '../systems/HealthbarRenderSystem';
 
 export class AbstractArena extends Phaser.Scene {
 
     private entities: Entity[] = [];
+    private systems: System[] = [];
     private friendlyPhysics: Phaser.Physics.Arcade.Group;
     private enemyPhysics: Phaser.Physics.Arcade.Group;
 
@@ -16,6 +19,7 @@ export class AbstractArena extends Phaser.Scene {
     create(): void {
         this.friendlyPhysics = this.physics.add.group();
         this.enemyPhysics = this.physics.add.group();
+        this.systems.push(new HealthbarRenderSystem(this));
     }
 
     addEntity(entity: Entity): void {
@@ -41,6 +45,10 @@ export class AbstractArena extends Phaser.Scene {
         }
     }
 
+    getEntities(): Entity[] {
+        return this.entities;
+    }
+
     getFriendlyPhysicsGroup(): Phaser.Physics.Arcade.Group {
         return this.friendlyPhysics;
     }
@@ -51,5 +59,6 @@ export class AbstractArena extends Phaser.Scene {
 
     update(t: number, dt: number): void {
         this.entities.forEach(e => e.update(dt));
+        this.systems.forEach(system => system.update(dt));
     }
 }

@@ -1,14 +1,15 @@
 import Component from "../components/Component";
 
 export default abstract class Entity {
-    components: Component[] = [];
+    private components: Map<Function, Component> = new Map();
+
 
     addComponent(component: Component): void {
-        this.components.push(component);
+        this.components.set(component.constructor, component);
     }
 
     getComponent<T extends Component>(type: new (...args: any[]) => T): T {
-        return this.components.find(c => c instanceof type) as T;
+        return this.components.get(type) as T;
     }
 
     update(dt: number): void {
@@ -16,7 +17,7 @@ export default abstract class Entity {
     }
 
     destroy(): void {
-        this.components = [];
+        this.components.clear();
     }
 
     abstract getGameObject(): Phaser.GameObjects.GameObject;

@@ -15,7 +15,7 @@ export class Enemy extends Entity {
         const sprite = new SpriteComponent(scene, x, y, texture);
         const input = new InputComponent(scene, sprite.getSprite(), 200);
         const chase = new ChaseComponent(scene, sprite.getSprite(), player.getComponent(SpriteComponent).getSprite(), 100);
-        const health = new HealthComponent(this, scene, 1);
+        const health = new HealthComponent(this, scene, 100);
         const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getFriendlyPhysicsGroup());
         this.addComponent(sprite);
         this.addComponent(input);

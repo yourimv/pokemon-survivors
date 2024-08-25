@@ -17,8 +17,8 @@ export class HealthComponent implements Component {
 
     takeDamage(amount: number): void {
         this.currentHealth -= amount;
-        if (this.currentHealth < 0) {
-            this.currentHealth = 0;
+        console.log(this.currentHealth);
+        if (this.currentHealth <= 0) {
             this.scene.removeEntity(this.entity);
         }
     }

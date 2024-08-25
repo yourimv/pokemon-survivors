@@ -10,7 +10,7 @@ export default class CollisionComponent implements Component {
         if (!collisionEvent) {
             collisionEvent = new SimpleCollisionEvent;
         }
-        scene.physics.add.overlap(sprite, otherGroup, collisionEvent.handle);
+        scene.physics.add.overlap(sprite, otherGroup, collisionEvent.handle.bind(collisionEvent));
     }
 
     update(dt: number): void {
