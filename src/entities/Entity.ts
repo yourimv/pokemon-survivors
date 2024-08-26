@@ -17,6 +17,7 @@ export default abstract class Entity {
     }
 
     destroy(): void {
+        this.getGameObject().destroy();
         this.components.clear();
     }
 

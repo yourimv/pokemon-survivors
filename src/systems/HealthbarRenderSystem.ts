@@ -21,6 +21,13 @@ export default class HealthbarRenderSystem implements System {
                 this.removeHealthbar(entity.constructor);
             }
         });
+        this.healthbars.forEach((value, key) => {
+            if (!this.scene.getEntities().some(e => e instanceof key)) {
+                value.clear();
+                value.destroy();
+                this.healthbars.delete(key);
+            }
+        });
     }
 
     render(entity: Entity): void {

@@ -4,6 +4,9 @@ import Entity from '../entities/Entity';
 import { Enemy } from '../entities/Enemy';
 import System from '../systems/System';
 import HealthbarRenderSystem from '../systems/HealthbarRenderSystem';
+import HealthSystem from '../systems/HealthSystem';
+import SpriteSystem from '../systems/SpriteSystem';
+import InputSystem from '../systems/InputSystem';
 
 export class AbstractArena extends Phaser.Scene {
 
@@ -20,6 +23,9 @@ export class AbstractArena extends Phaser.Scene {
         this.friendlyPhysics = this.physics.add.group();
         this.enemyPhysics = this.physics.add.group();
         this.systems.push(new HealthbarRenderSystem(this));
+        this.systems.push(new HealthSystem(this));
+        this.systems.push(new SpriteSystem(this));
+        this.systems.push(new InputSystem(this));
     }
 
     addEntity(entity: Entity): void {
@@ -35,7 +41,6 @@ export class AbstractArena extends Phaser.Scene {
     }
 
     removeEntity(entity: Entity): void {
-        entity.getGameObject().destroy();
         this.entities = this.entities.filter(e => e !== entity);
         if (entity instanceof Enemy) {
             this.enemyPhysics.remove(entity.getGameObject());
@@ -43,6 +48,7 @@ export class AbstractArena extends Phaser.Scene {
         else {
             this.friendlyPhysics.remove(entity.getGameObject());
         }
+        entity.destroy();
     }
 
     getEntities(): Entity[] {

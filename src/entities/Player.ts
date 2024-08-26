@@ -3,12 +3,12 @@ import SpriteComponent from '../components/SpriteComponent';
 import Phaser from 'phaser';
 import Entity from './Entity';
 import InputComponent from '../components/InputComponent';
-import { AnimationComponent } from '../components/AnimationComponent';
 import { DirectionState } from '../states/DirectionState';
 import { Thunderbolt } from '../components/weapons/Thunderbolt';
 import { HealthComponent } from '../components/HealthComponent';
 import { AbstractArena } from '../scenes/AbstractArena';
 import CollisionComponent from '../components/CollisionComponent';
+import VelocityComponent from '../components/VelocityComponent';
 
 export class Player extends Entity {
 
@@ -20,14 +20,14 @@ export class Player extends Entity {
         sprite.setScale(1);
         this.createAnimations(sprite, scene, ActivityState.Idle, texture, 5);
         this.createAnimations(sprite, scene, ActivityState.Walk, texture, 3);
-        const input = new InputComponent(scene, sprite.getSprite(), 200);
-        const animation = new AnimationComponent(sprite);
+        const input = new InputComponent(scene);
+        const velocity = new VelocityComponent(sprite.getSprite(), 200);
         const weapon = new Thunderbolt(scene, sprite.getSprite());
-        const health = new HealthComponent(this, scene, 100);
+        const health = new HealthComponent(100);
         const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getEnemyPhysicsGroup());
         this.addComponent(sprite);
+        this.addComponent(velocity);
         this.addComponent(input);
-        this.addComponent(animation);
         this.addComponent(weapon);
         this.addComponent(health);
         this.addComponent(collision);
