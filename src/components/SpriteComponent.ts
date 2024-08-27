@@ -1,3 +1,4 @@
+import { SpriteSheetConfig } from './../config/SpriteSheetConfig';
 import { DirectionState } from "../states/DirectionState";
 import Component from "./Component";
 
@@ -6,13 +7,19 @@ export default class SpriteComponent implements Component {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Arcade.Sprite;
     private texture: string;
+    private spriteSheetConfigs: SpriteSheetConfig[] = [];
     private previousDirection: DirectionState = DirectionState.Down;
     private direction: DirectionState;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, spriteSheetConfigs: SpriteSheetConfig[]) {
         this.scene = scene;
         this.texture = texture;
         this.sprite = scene.physics.add.sprite(x, y, texture);
+        this.spriteSheetConfigs = spriteSheetConfigs;
+    }
+
+    getSpriteSheetConfigs(): SpriteSheetConfig[] {
+        return this.spriteSheetConfigs;
     }
 
     setPosition(x: number, y: number): void {
@@ -61,23 +68,6 @@ export default class SpriteComponent implements Component {
 
     destroy(): void {
         this.sprite.destroy();
-    }
-
-    addAnimation(key: string, frames: Phaser.Types.Animations.AnimationFrame[], frameRate: number): void {
-        this.scene.anims.create({
-            key: `${this.texture}-${key}`,
-            frames: frames,
-            frameRate: frameRate,
-            repeat: -1
-        });
-    }
-
-    playAnimation(key: string): void {
-        // dont play the animation if it doesn't exist to not spam the console
-        if (!this.scene.anims.exists(`${this.texture}-${key}`)) {
-            return;
-        }
-        this.sprite.anims.play(`${this.texture}-${key}`, true);
     }
 
     update(dt: number): void {

@@ -22,6 +22,9 @@ export class AbstractArena extends Phaser.Scene {
     create(): void {
         this.friendlyPhysics = this.physics.add.group();
         this.enemyPhysics = this.physics.add.group();
+    }
+
+    initSystems(): void {
         this.systems.push(new HealthbarRenderSystem(this));
         this.systems.push(new HealthSystem(this));
         this.systems.push(new SpriteSystem(this));

@@ -11,10 +11,11 @@ export default class SpriteSystem implements System {
 
     constructor(scene: AbstractArena) {
         this.scene = scene;
+        this.createAnimations();
     }
 
     update(dt: number): void {
-        const entities = this.scene.getEntities().filter(entity => entity.getComponent(SpriteComponent));
+        const entities = this.scene.getEntities();
         entities.forEach(entity => {
             this.updateSprite(entity);
         });
@@ -56,30 +57,44 @@ export default class SpriteSystem implements System {
         if (direction != null) {
             sprite.setPreviousDirection(direction);
         }
-        sprite.playAnimation(activity + '-' + sprite.getPreviousDirection());
+        this.playAnimation(sprite, activity + '-' + sprite.getPreviousDirection());
     }
 
     // TODO: this is currently defined in entities, should likely be done here
-    private createAnimations(sprite: SpriteComponent, scene: Phaser.Scene, activity: ActivityState, texture: string, interval: number): void {
-        const directions = [
-            DirectionState.Down,
-            DirectionState.DownRight,
-            DirectionState.Right,
-            DirectionState.UpRight,
-            DirectionState.Up,
-            DirectionState.UpLeft,
-            DirectionState.Left,
-            DirectionState.DownLeft
-        ];
-        let startFrame = 0;
-        directions.forEach((direction) => {
-            const endFrame = startFrame + interval;
-            this.addAnimation(`${sprite.getTexture()}-${activity}-${direction}`,
-                scene.anims.generateFrameNumbers(`${texture}-${activity}`, { start: startFrame, end: endFrame }),
-                this.fps
-            );
-            startFrame = endFrame + 1; // Update startFrame for next direction
+    private createAnimations(): void {
+        const entities = this.scene.getEntities();
+        entities.forEach(entity => {
+            const spritec = entity.getComponent(SpriteComponent);
+            if (!spritec) {
+                return;
+            }
+            const confs = spritec.getSpriteSheetConfigs();
+            if (!confs) {
+                return;
+            }
+            confs.forEach(config => {
+                const directions = [
+                    DirectionState.Down,
+                    DirectionState.DownRight,
+                    DirectionState.Right,
+                    DirectionState.UpRight,
+                    DirectionState.Up,
+                    DirectionState.UpLeft,
+                    DirectionState.Left,
+                    DirectionState.DownLeft
+                ];
+                let startFrame = 0;
+                directions.forEach((direction) => {
+                    const endFrame = startFrame + config.frames;
+                    this.addAnimation(`${spritec.getTexture()}-${config.activity}-${direction}`,
+                        this.scene.anims.generateFrameNumbers(`${config.texture}-${config.activity}`, { start: startFrame, end: endFrame }),
+                        this.fps
+                    );
+                    startFrame = endFrame + 1; // Update startFrame for next direction
+                });
+            });
         });
+
     }
 
     // TODO: this is currently defined in entities, should likely be done here
@@ -90,6 +105,14 @@ export default class SpriteSystem implements System {
             frameRate: frameRate,
             repeat: -1
         });
+    }
+
+    private playAnimation(spritec: SpriteComponent, key: string): void {
+        // dont play the animation if it doesn't exist to not spam the console
+        if (!this.scene.anims.exists(`${spritec.getTexture()}-${key}`)) {
+            return;
+        }
+        spritec.getSprite().anims.play(`${spritec.getTexture()}-${key}`, true);
     }
 
 }

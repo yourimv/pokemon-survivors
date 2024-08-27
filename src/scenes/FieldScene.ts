@@ -20,6 +20,7 @@ export class FieldScene extends AbstractArena {
         const player = new Player(this, 100, 100, 'player')
         this.addEntity(player);
         this.addEntity(new Enemy(this, 300, 300, 'enemy', player));
+        this.initSystems();
     }
 
     update(t: number, dt: number): void {
