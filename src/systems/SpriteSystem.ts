@@ -33,10 +33,10 @@ export default class SpriteSystem implements System {
 
         // Determine activity state
         if (velocityX !== 0 || velocityY !== 0) {
-            activity = ActivityState.Walk;
+            activity = ActivityState.WALK;
         }
         else {
-            activity = ActivityState.Idle;
+            activity = ActivityState.IDLE;
         }
         // Determine direction state
         if (velocityX < 0) {

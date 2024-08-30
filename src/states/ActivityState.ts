@@ -1,4 +1,4 @@
 export enum ActivityState {
-    Walk = 'walk',
-    Idle = 'idle',
+    WALK = 'walk',
+    IDLE = 'idle',
 }

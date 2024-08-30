@@ -4,7 +4,6 @@ import SpriteComponent from '../components/SpriteComponent';
 import Phaser from 'phaser';
 import Entity from './Entity';
 import InputComponent from '../components/InputComponent';
-import { DirectionState } from '../states/DirectionState';
 import { Thunderbolt } from '../components/weapons/Thunderbolt';
 import { HealthComponent } from '../components/HealthComponent';
 import { AbstractArena } from '../scenes/AbstractArena';
@@ -16,12 +15,12 @@ export class Player extends Entity {
     constructor(scene: AbstractArena, x: number, y: number, texture: string) {
         super();
         const idleConfig: SpriteSheetConfig = {
-            activity: ActivityState.Idle,
+            activity: ActivityState.IDLE,
             texture: texture,
             frames: 5
         };
         const walkConfig: SpriteSheetConfig = {
-            activity: ActivityState.Walk,
+            activity: ActivityState.WALK,
             texture: texture,
             frames: 3
         };

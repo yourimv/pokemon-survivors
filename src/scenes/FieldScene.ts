@@ -1,4 +1,3 @@
-
 import { Enemy } from "../entities/Enemy";
 import { Player } from "../entities/Player";
 import { AbstractArena } from './AbstractArena';
@@ -12,7 +11,8 @@ export class FieldScene extends AbstractArena {
     preload(): void {
         this.load.spritesheet('player-walk', '/assets/spritesheets/pikachu-walk.png', { frameWidth: 32, frameHeight: 40 });
         this.load.spritesheet('player-idle', '/assets/spritesheets/pikachu-idle.png', { frameWidth: 40, frameHeight: 55 });
-        this.load.image('enemy', '/assets/enemy.png');
+        this.load.spritesheet('enemy-walk', '/assets/spritesheets/eevee-walk.png', { frameWidth: 40, frameHeight: 47 });
+        this.load.spritesheet('enemy-idle', '/assets/spritesheets/eevee-idle.png', { frameWidth: 24, frameHeight: 32 });
     }
 
     create(): void {
