@@ -1,5 +1,5 @@
-import { SpriteSheetConfig } from './../config/SpriteSheetConfig';
-import { DirectionState } from "../states/DirectionState";
+import { SpriteSheetConfig } from '../model/config/SpriteSheetConfig';
+import { DirectionState } from "../state/DirectionState";
 import Component from "./Component";
 
 export default class SpriteComponent implements Component {

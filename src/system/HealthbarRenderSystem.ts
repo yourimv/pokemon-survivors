@@ -1,7 +1,7 @@
-import { HealthComponent } from "../components/HealthComponent";
-import SpriteComponent from "../components/SpriteComponent";
-import Entity from "../entities/Entity";
-import { AbstractArena } from "../scenes/AbstractArena";
+import { HealthComponent } from "../component/HealthComponent";
+import SpriteComponent from "../component/SpriteComponent";
+import Entity from "../entity/Entity";
+import { AbstractArena } from "../scene/AbstractArena";
 import System from "./System";
 
 export default class HealthbarRenderSystem implements System {

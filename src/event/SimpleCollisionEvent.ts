@@ -1,4 +1,4 @@
-import Entity from "../entities/Entity";
+import Entity from "../entity/Entity";
 import { AbstractCollisionEvent } from "./AbstractCollisionEvent";
 
 export default class SimpleCollisionEvent extends AbstractCollisionEvent {

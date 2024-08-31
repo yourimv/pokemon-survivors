@@ -1,6 +1,6 @@
-import DamageComponent from "../components/DamageComponent";
-import { HealthComponent } from "../components/HealthComponent";
-import Entity from "../entities/Entity";
+import DamageComponent from "../component/DamageComponent";
+import { HealthComponent } from "../component/HealthComponent";
+import Entity from "../entity/Entity";
 import { AbstractCollisionEvent } from "./AbstractCollisionEvent";
 
 export default class DamageCollisionEvent extends AbstractCollisionEvent {

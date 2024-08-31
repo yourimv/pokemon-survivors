@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import Component from './Component';
-import { AbstractArena } from '../scenes/AbstractArena';
-import { AbstractCollisionEvent } from '../events/AbstractCollisionEvent';
-import SimpleCollisionEvent from '../events/SimpleCollisionEvent';
+import { AbstractArena } from '../scene/AbstractArena';
+import { AbstractCollisionEvent } from '../event/AbstractCollisionEvent';
+import SimpleCollisionEvent from '../event/SimpleCollisionEvent';
 
 export default class CollisionComponent implements Component {
 

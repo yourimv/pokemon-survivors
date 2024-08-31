@@ -1,7 +1,7 @@
-import InputComponent from "../components/InputComponent";
-import VelocityComponent from "../components/VelocityComponent";
-import Entity from "../entities/Entity";
-import { AbstractArena } from "../scenes/AbstractArena";
+import InputComponent from "../component/InputComponent";
+import VelocityComponent from "../component/VelocityComponent";
+import Entity from "../entity/Entity";
+import { AbstractArena } from "../scene/AbstractArena";
 import System from "./System";
 
 export default class InputSystem implements System {

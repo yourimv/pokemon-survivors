@@ -1,4 +1,4 @@
-import { FieldScene } from './scenes/FieldScene';
+import { FieldScene } from './scene/FieldScene';
 import { Game, Types } from 'phaser';
 
 //  Find out more information about the Game Config at:

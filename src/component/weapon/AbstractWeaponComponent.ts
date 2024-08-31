@@ -1,5 +1,5 @@
-import { WeaponConfig } from "../../config/WeaponConfig";
-import { AbstractArena } from "../../scenes/AbstractArena";
+import { WeaponConfig } from "../../model/config/WeaponConfig";
+import { AbstractArena } from "../../scene/AbstractArena";
 import Component from "../Component";
 
 export abstract class AbstractWeaponComponent implements Component {

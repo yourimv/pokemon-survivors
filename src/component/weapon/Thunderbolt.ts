@@ -1,8 +1,8 @@
-import { AbstractArena } from './../../scenes/AbstractArena';
-import { WeaponConfig } from './../../config/WeaponConfig';
+import { AbstractArena } from '../../scene/AbstractArena';
+import { WeaponConfig } from '../../model/config/WeaponConfig';
 import { AbstractWeaponComponent } from "./AbstractWeaponComponent";
 import SpriteComponent from '../SpriteComponent';
-import DamageHitbox from '../../entities/hitboxes/DamageHitbox';
+import DamageHitbox from '../../entity/hitbox/DamageHitbox';
 
 export class Thunderbolt extends AbstractWeaponComponent {
 

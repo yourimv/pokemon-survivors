@@ -1,5 +1,5 @@
-import { HealthComponent } from "../components/HealthComponent";
-import { AbstractArena } from "../scenes/AbstractArena";
+import { HealthComponent } from "../component/HealthComponent";
+import { AbstractArena } from "../scene/AbstractArena";
 import System from "./System";
 
 export default class HealthSystem implements System {

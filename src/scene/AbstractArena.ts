@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
 
-import Entity from '../entities/Entity';
-import { Enemy } from '../entities/Enemy';
-import System from '../systems/System';
-import HealthbarRenderSystem from '../systems/HealthbarRenderSystem';
-import HealthSystem from '../systems/HealthSystem';
-import SpriteSystem from '../systems/SpriteSystem';
-import InputSystem from '../systems/InputSystem';
+import Entity from '../entity/Entity';
+import { Enemy } from '../entity/Enemy';
+import System from '../system/System';
+import HealthbarRenderSystem from '../system/HealthbarRenderSystem';
+import HealthSystem from '../system/HealthSystem';
+import SpriteSystem from '../system/SpriteSystem';
+import InputSystem from '../system/InputSystem';
 
 export class AbstractArena extends Phaser.Scene {
 

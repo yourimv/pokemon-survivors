@@ -1,8 +1,8 @@
-import SpriteComponent from "../components/SpriteComponent";
-import Entity from "../entities/Entity";
-import { AbstractArena } from "../scenes/AbstractArena";
-import { ActivityState } from "../states/ActivityState";
-import { DirectionState } from "../states/DirectionState";
+import SpriteComponent from "../component/SpriteComponent";
+import Entity from "../entity/Entity";
+import { AbstractArena } from "../scene/AbstractArena";
+import { ActivityState } from "../state/ActivityState";
+import { DirectionState } from "../state/DirectionState";
 import System from "./System";
 
 export default class SpriteSystem implements System {

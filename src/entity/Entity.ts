@@ -1,4 +1,4 @@
-import Component from "../components/Component";
+import Component from "../component/Component";
 
 export default abstract class Entity {
     private components: Map<Function, Component> = new Map();
