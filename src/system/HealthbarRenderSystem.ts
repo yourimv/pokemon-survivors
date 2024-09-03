@@ -6,7 +6,7 @@ import System from "./System";
 
 export default class HealthbarRenderSystem implements System {
     private scene: AbstractArena;
-    private healthbars: Map<Function, Phaser.GameObjects.Graphics> = new Map();
+    private healthbars: Map<string, Phaser.GameObjects.Graphics> = new Map();
 
     constructor(scene: AbstractArena) {
         this.scene = scene;
@@ -18,14 +18,7 @@ export default class HealthbarRenderSystem implements System {
             if (health) {
                 this.render(entity);
             } else {
-                this.removeHealthbar(entity.constructor);
-            }
-        });
-        this.healthbars.forEach((value, key) => {
-            if (!this.scene.getEntities().some(e => e instanceof key)) {
-                value.clear();
-                value.destroy();
-                this.healthbars.delete(key);
+                this.removeHealthbar(entity.getUUID());
             }
         });
     }
@@ -36,11 +29,11 @@ export default class HealthbarRenderSystem implements System {
 
         if (health && sprite) {
             const spriteObj = sprite.getSprite();
-            let healthbar = this.healthbars.get(entity.constructor);
+            let healthbar = this.healthbars.get(entity.getUUID());
 
             if (!healthbar) {
                 healthbar = this.scene.add.graphics();
-                this.healthbars.set(entity.constructor, healthbar);
+                this.healthbars.set(entity.getUUID(), healthbar);
             }
 
             healthbar.clear();
@@ -61,12 +54,12 @@ export default class HealthbarRenderSystem implements System {
         }
     }
 
-    removeHealthbar(gameObject: Function): void {
-        const healthbar = this.healthbars.get(gameObject);
+    removeHealthbar(uuid: string): void {
+        const healthbar = this.healthbars.get(uuid);
         if (healthbar) {
             healthbar.clear();
             healthbar.destroy();
-            this.healthbars.delete(gameObject);
+            this.healthbars.delete(uuid);
         }
     }
 

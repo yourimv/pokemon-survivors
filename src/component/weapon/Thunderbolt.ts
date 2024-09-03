@@ -3,6 +3,7 @@ import { WeaponConfig } from '../../model/config/WeaponConfig';
 import { AbstractWeaponComponent } from "./AbstractWeaponComponent";
 import SpriteComponent from '../SpriteComponent';
 import DamageHitbox from '../../entity/hitbox/DamageHitbox';
+import CollisionComponent from '../CollisionComponent';
 
 export class Thunderbolt extends AbstractWeaponComponent {
 
@@ -29,7 +30,7 @@ export class Thunderbolt extends AbstractWeaponComponent {
             this.hitbox.getComponent(SpriteComponent).setPosition(this.sprite.x, this.sprite.y);
             if (currentTime - this.hitboxCreationTime >= this.config.duration) {
                 this.hitbox.getComponent(SpriteComponent).destroy();
-                this.hitbox.getEvent().reset(); // Reset the event to make it eligible to apply again
+                this.hitbox.getComponent(CollisionComponent).reset(); // Reset the event to make it eligible to apply again
             }
             // this.graphics.clear();
             // this.graphics.fillStyle(0xffff00, 1);

@@ -7,8 +7,13 @@ import HealthbarRenderSystem from '../system/HealthbarRenderSystem';
 import HealthSystem from '../system/HealthSystem';
 import SpriteSystem from '../system/SpriteSystem';
 import InputSystem from '../system/InputSystem';
+import WaveSystem from '../system/WaveSystem';
+import { Player } from '../entity/Player';
+import { SpriteSheetConfig } from '../model/config/SpriteSheetConfig';
 
 export class AbstractArena extends Phaser.Scene {
+
+    protected spriteSheetConfigs: SpriteSheetConfig[] = [];
 
     private entities: Entity[] = [];
     private systems: System[] = [];
@@ -29,6 +34,7 @@ export class AbstractArena extends Phaser.Scene {
         this.systems.push(new HealthSystem(this));
         this.systems.push(new SpriteSystem(this));
         this.systems.push(new InputSystem(this));
+        this.systems.push(new WaveSystem(this));
     }
 
     addEntity(entity: Entity): void {
@@ -54,8 +60,16 @@ export class AbstractArena extends Phaser.Scene {
         entity.destroy();
     }
 
+    getSpriteSheetConfigs(): SpriteSheetConfig[] {
+        return this.spriteSheetConfigs;
+    }
+
     getEntities(): Entity[] {
         return this.entities;
+    }
+
+    getPlayer(): Entity | null {
+        return this.entities.find(e => e instanceof Player) || null;
     }
 
     getFriendlyPhysicsGroup(): Phaser.Physics.Arcade.Group {
@@ -67,6 +81,7 @@ export class AbstractArena extends Phaser.Scene {
     }
 
     update(t: number, dt: number): void {
+        // to do - scene should not be responsible for updating entities
         this.entities.forEach(e => e.update(dt));
         this.systems.forEach(system => system.update(dt));
     }

@@ -2,7 +2,7 @@ import Component from "../component/Component";
 
 export default abstract class Entity {
     private components: Map<Function, Component> = new Map();
-
+    private readonly uuid: string = Phaser.Math.RND.uuid();
 
     addComponent(component: Component): void {
         this.components.set(component.constructor, component);
@@ -19,6 +19,10 @@ export default abstract class Entity {
     destroy(): void {
         this.getGameObject().destroy();
         this.components.clear();
+    }
+
+    getUUID(): string {
+        return this.uuid;
     }
 
     abstract getGameObject(): Phaser.GameObjects.GameObject;

@@ -62,36 +62,26 @@ export default class SpriteSystem implements System {
 
     // TODO: this is currently defined in entities, should likely be done here
     private createAnimations(): void {
-        const entities = this.scene.getEntities();
-        entities.forEach(entity => {
-            const spritec = entity.getComponent(SpriteComponent);
-            if (!spritec) {
-                return;
-            }
-            const confs = spritec.getSpriteSheetConfigs();
-            if (!confs) {
-                return;
-            }
-            confs.forEach(config => {
-                const directions = [
-                    DirectionState.Down,
-                    DirectionState.DownRight,
-                    DirectionState.Right,
-                    DirectionState.UpRight,
-                    DirectionState.Up,
-                    DirectionState.UpLeft,
-                    DirectionState.Left,
-                    DirectionState.DownLeft
-                ];
-                let startFrame = 0;
-                directions.forEach((direction) => {
-                    const endFrame = startFrame + config.frames;
-                    this.addAnimation(`${spritec.getTexture()}-${config.activity}-${direction}`,
-                        this.scene.anims.generateFrameNumbers(`${config.texture}-${config.activity}`, { start: startFrame, end: endFrame }),
-                        this.fps
-                    );
-                    startFrame = endFrame + 1; // Update startFrame for next direction
-                });
+        const configs = this.scene.getSpriteSheetConfigs();
+        configs.forEach(config => {
+            const directions = [
+                DirectionState.Down,
+                DirectionState.DownRight,
+                DirectionState.Right,
+                DirectionState.UpRight,
+                DirectionState.Up,
+                DirectionState.UpLeft,
+                DirectionState.Left,
+                DirectionState.DownLeft
+            ];
+            let startFrame = 0;
+            directions.forEach((direction) => {
+                const endFrame = startFrame + config.frames;
+                this.addAnimation(`${config.texture}-${config.activity}-${direction}`,
+                    this.scene.anims.generateFrameNumbers(`${config.texture}-${config.activity}`, { start: startFrame, end: endFrame }),
+                    this.fps
+                );
+                startFrame = endFrame + 1; // Update startFrame for next direction
             });
         });
 
