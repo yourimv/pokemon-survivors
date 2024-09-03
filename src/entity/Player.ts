@@ -16,7 +16,7 @@ export class Player extends Entity {
         const sprite = new SpriteComponent(scene, x, y, pkmn.config.pokemon, pkmn.config.spriteSheets);
         sprite.setScale(1);
         const input = new InputComponent(scene);
-        const velocity = new VelocityComponent(sprite.getSprite(), 200);
+        const velocity = new VelocityComponent(sprite.getSprite(), pkmn.config.speed);
         const weapon = new Thunderbolt(scene, sprite.getSprite());
         const health = new HealthComponent(100);
         const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getEnemyPhysicsGroup());

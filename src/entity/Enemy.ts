@@ -13,12 +13,13 @@ export class Enemy extends Entity {
     constructor(scene: AbstractArena, x: number, y: number, pkmn: AbstractPokemon, target: Entity) {
         super();
         const sprite = new SpriteComponent(scene, x, y, pkmn.config.pokemon, pkmn.config.spriteSheets);
-        const input = new VelocityComponent(sprite.getSprite(), 200);
-        const chase = new ChaseComponent(scene, sprite.getSprite(), target.getComponent(SpriteComponent).getSprite(), 100);
+        console.log(pkmn.config.speed)
+        const velocity = new VelocityComponent(sprite.getSprite(), pkmn.config.speed);
+        const chase = new ChaseComponent(scene, sprite.getSprite(), target.getComponent(SpriteComponent).getSprite(), pkmn.config.speed);
         const health = new HealthComponent(100);
         const collision = new CollisionComponent(scene, sprite.getSprite(), scene.getFriendlyPhysicsGroup());
         this.addComponent(sprite);
-        this.addComponent(input);
+        this.addComponent(velocity);
         this.addComponent(chase);
         this.addComponent(health);
         this.addComponent(collision);

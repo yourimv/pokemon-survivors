@@ -1,4 +1,3 @@
-import { Pikachu } from './../model/AbstractPokemon';
 import { WaveSystemConfig } from './../model/config/system/SystemConfig';
 import { Player } from "../entity/Player";
 import { Pokemon } from "../model/enum/Pokemon";
