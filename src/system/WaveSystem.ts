@@ -1,5 +1,6 @@
 import { Enemy } from "../entity/Enemy";
-import { Pokemon } from "../enum/Pokemon";
+import { WaveSystemConfig } from "../model/config/system/SystemConfig";
+import { Pokemon } from "../model/enum/Pokemon";
 import { AbstractArena } from "../scene/AbstractArena";
 import PokemonFactory from "../util/factory/PokemonFactory";
 import System from "./System";
@@ -11,9 +12,11 @@ export default class WaveSystem implements System {
     private enemiesPerWave: number = 5;
     private waveInterval: number = 5000; // 10 seconds
     private waveTimer: number = 0;
+    private systemConfig: WaveSystemConfig;
 
-    constructor(scene: AbstractArena) {
+    constructor(scene: AbstractArena, systemConfig: WaveSystemConfig) {
         this.scene = scene;
+        this.systemConfig = systemConfig;
     }
 
     update(dt: number): void {
@@ -31,11 +34,15 @@ export default class WaveSystem implements System {
                 this.scene,
                 Math.random() * this.scene.scale.width,
                 Math.random() * this.scene.scale.height,
-                PokemonFactory.createPokemon(Pokemon.EEVEE),
+                PokemonFactory.createPokemon(this.randomPokemon()),
                 this.scene.getPlayer()!
             );
             this.scene.addEntity(enemy);
         }
     }
 
+    private randomPokemon(): Pokemon {
+        const pkmn = this.systemConfig.pokemon;
+        return pkmn[Math.floor(Math.random() * pkmn.length)];
+    }
 }

@@ -10,6 +10,7 @@ import InputSystem from '../system/InputSystem';
 import WaveSystem from '../system/WaveSystem';
 import { Player } from '../entity/Player';
 import { SpriteSheetConfig } from '../model/config/SpriteSheetConfig';
+import { WaveSystemConfig } from '../model/config/system/SystemConfig';
 
 export class AbstractArena extends Phaser.Scene {
 
@@ -29,12 +30,12 @@ export class AbstractArena extends Phaser.Scene {
         this.enemyPhysics = this.physics.add.group();
     }
 
-    initSystems(): void {
+    initArenaSystems(waveSystemConfig: WaveSystemConfig): void {
         this.systems.push(new HealthbarRenderSystem(this));
         this.systems.push(new HealthSystem(this));
         this.systems.push(new SpriteSystem(this));
         this.systems.push(new InputSystem(this));
-        this.systems.push(new WaveSystem(this));
+        this.systems.push(new WaveSystem(this, waveSystemConfig));
     }
 
     addEntity(entity: Entity): void {

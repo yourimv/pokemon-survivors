@@ -5,8 +5,8 @@ export class SpriteSheetConfigBuilder {
     activity: ActivityState;
     texture: string;
     frames: number;
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
 
     constructor(texture: string) {
         this.texture = texture;

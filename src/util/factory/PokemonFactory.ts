@@ -1,5 +1,5 @@
-import { Pokemon } from "../../enum/Pokemon";
-import AbstractPokemon, { Eevee, Pikachu } from "../../model/AbstractPokemon";
+import { Pokemon } from "../../model/enum/Pokemon";
+import AbstractPokemon, { Duskull, Eevee, Pikachu } from "../../model/AbstractPokemon";
 
 export default class PokemonFactory {
     private static map: Map<Pokemon, AbstractPokemon> = this.initFactoryMap()
@@ -16,6 +16,7 @@ export default class PokemonFactory {
         const map = new Map<Pokemon, AbstractPokemon>();
         map.set(Pokemon.PIKACHU, new Pikachu());
         map.set(Pokemon.EEVEE, new Eevee());
+        map.set(Pokemon.DUSKULL, new Duskull());
         return map;
     }
 }

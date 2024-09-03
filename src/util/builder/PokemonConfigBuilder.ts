@@ -1,4 +1,4 @@
-import { Pokemon } from "../../enum/Pokemon";
+import { Pokemon } from "../../model/enum/Pokemon";
 import { PokemonConfig } from "../../model/config/PokemonConfig";
 import { SpriteSheetConfig } from "../../model/config/SpriteSheetConfig";
 

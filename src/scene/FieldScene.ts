@@ -1,5 +1,7 @@
+import { Pikachu } from './../model/AbstractPokemon';
+import { WaveSystemConfig } from './../model/config/system/SystemConfig';
 import { Player } from "../entity/Player";
-import { Pokemon } from "../enum/Pokemon";
+import { Pokemon } from "../model/enum/Pokemon";
 import AbstractPokemon from "../model/AbstractPokemon";
 import PokemonFactory from "../util/factory/PokemonFactory";
 import { AbstractArena } from './AbstractArena';
@@ -14,18 +16,21 @@ export class FieldScene extends AbstractArena {
 
     preload(): void {
         this.preloadPokemonSprites();
-        this.arenaEnemies().forEach(enemy => {
+        this.arenaPokemon().forEach(enemy => {
             this.spriteSheetConfigs = this.spriteSheetConfigs.concat(enemy.config.spriteSheets);
         });
-        this.spriteSheetConfigs = this.spriteSheetConfigs.concat(this.player.config.spriteSheets);
     }
 
     create(): void {
         super.create();
         const player = new Player(this, 100, 100, this.player)
         this.addEntity(player);
-        // this.addEntity(new Enemy(this, 300, 300, this.enemies[0], player));
-        this.initSystems();
+
+        // Initialize the systems
+        const waveSystemConfig: WaveSystemConfig = {
+            pokemon: this.arenaPokemon().map(enemy => enemy.config.pokemon)
+        };
+        this.initArenaSystems(waveSystemConfig);
 
         // Set up the camera
         const camera = this.cameras.main;
@@ -38,18 +43,16 @@ export class FieldScene extends AbstractArena {
         super.update(t, dt);
     }
 
-    private arenaEnemies(): AbstractPokemon[] {
+    private arenaPokemon(): AbstractPokemon[] {
         return [
-            PokemonFactory.createPokemon(Pokemon.EEVEE)
+            PokemonFactory.createPokemon(Pokemon.EEVEE),
+            PokemonFactory.createPokemon(Pokemon.DUSKULL),
+            PokemonFactory.createPokemon(Pokemon.PIKACHU)
         ];
     }
 
     private preloadPokemonSprites() {
-        this.player.config.spriteSheets.forEach(spriteSheet => {
-            const sheet = `${spriteSheet.texture}-${spriteSheet.activity}`;
-            this.load.spritesheet(sheet, `/assets/spritesheets/${sheet}.png`, { frameWidth: spriteSheet.width!, frameHeight: spriteSheet.height });
-        });
-        this.arenaEnemies().forEach(enemy => {
+        this.arenaPokemon().forEach(enemy => {
             enemy.config.spriteSheets.forEach(spriteSheet => {
                 const sheet = `${spriteSheet.texture}-${spriteSheet.activity}`;
                 this.load.spritesheet(sheet, `/assets/spritesheets/${sheet}.png`, { frameWidth: spriteSheet.width!, frameHeight: spriteSheet.height });

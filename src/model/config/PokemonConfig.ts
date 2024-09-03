@@ -1,4 +1,4 @@
-import { Pokemon } from "../../enum/Pokemon";
+import { Pokemon } from "../enum/Pokemon";
 import { SpriteSheetConfig } from "./SpriteSheetConfig";
 
 export interface PokemonConfig {
