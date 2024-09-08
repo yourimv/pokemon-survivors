@@ -32,10 +32,6 @@ export class Thunderbolt extends AbstractWeaponComponent {
                 this.hitbox.getComponent(SpriteComponent).destroy();
                 this.hitbox.getComponent(CollisionComponent).reset(); // Reset the event to make it eligible to apply again
             }
-            // this.graphics.clear();
-            // this.graphics.fillStyle(0xffff00, 1);
-            // this.graphics.fillCircle(this.circle.x, this.circle.y, this.circle.radius);
-            // this.graphics.setDepth(this.sprite.depth - 1);
         }
     }
 
